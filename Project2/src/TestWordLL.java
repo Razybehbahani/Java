@@ -9,7 +9,7 @@ public class TestWordLL {
 		Letter letter1 = new Letter('J');
 		Letter letter2 = new Letter('V');
 		Letter letter3 = new Letter('J');
-//
+
 		// ********** Letter equals
 		test(1,"Letter equals", !letter1.equals(letter2) && letter1.equals(letter3));
 		letter1.setCorrect();
@@ -20,7 +20,7 @@ public class TestWordLL {
 		test(2,"Letter set methods", (letter1.toString()+letter2.toString()+letter3.toString()).equals("!J!+V+-J-"));
 		Letter[] array = Letter.fromString("JAVA");
 
-		// ********** Letter fromString
+		 // ********** Letter fromString
 		test(3,"Letter fromString", array[1].equals(array[3]) && array[0].equals(letter1));
 		Word word1 = new Word(Letter.fromString("OBJECT"));
 		Word word2 = new Word(Letter.fromString("CLASS"));
@@ -28,9 +28,8 @@ public class TestWordLL {
 		Word word3 = new Word(Letter.fromString("CODE"));
 		word3.labelWord(word1);
 
-		// ********** Word toString + Constructor
+    	 // ********** Word toString + Constructor
 		test(4,"Word toString + Constructor", word1.toString().equals("Word:  O   B   J   E   C   T  "));
-
 		// ********** Word label
 		test(5,"Word label", word2.toString().equals("Word: +C+ -L- -A- -S- -S- "));
 
@@ -70,20 +69,23 @@ public class TestWordLL {
 			{"JC","10D","9H","QH"},
 			{"10C","AD","9H","KH"},
 			{"10C","QC","QD","10H"},
-			{"JC","9D","KH","9S"}};
+			{"JC","9D","KH","9S"}
+		};
 		int[][] intArr = {{2,5,0,1},
 			{2,0,4,5},
 			{1,2,0,4},
 			{2,1,0,3},
 			{1,5,0,4},
 			{1,3,3,1},
-			{2,0,4,0}};
-
+			{2,0,4,0}
+			};
+        // takes the last component of the arrays as this (wll2),
+		// then uses tryWord to label each component as other
 		WordLL wll2 = new WordLL(new Word(ExtendedLetter.fromStrings(stArr[stArr.length-1],intArr[stArr.length-1])));
 		for (int i = 0; i < stArr.length; i++) {
 			wll2.tryWord(new Word(ExtendedLetter.fromStrings(stArr[i],intArr[i])));
 		}
-//        System.out.println(wll2.toString());
+
 		// ********** ExtendLetter WordLL tryWord +
 		test(12,"ExtendLetter WordLL tryWord +", wll2.toString().contains("Word: !JC! !9D! !KH! !9S! ") &&
 		wll2.toString().contains("Word: -10C- -QC- -QD- -10H- ") &&

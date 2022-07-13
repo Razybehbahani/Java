@@ -1,14 +1,17 @@
 public class ExtendedLetter extends Letter {
-
-    // attributes
-    private String content;
-    private int family;
-    private boolean related;
     private static final int SINGLETON = -1;
-    private static final char c= 'c';
+    private static final char c = 'c';
+    /*
+    This class is a subclass of Letter and extends the functionality.
+    Instead of relying on a single char to represent the content of a Letter object,
+     objects of this class will use a String instance variable and will further
+     introduce the concept of being related to other ExtendedLetter objects.
+     */
+    private final String content;
+    private final int family;
+    private boolean related;
 
-    // constructor
-    public ExtendedLetter (String s) {
+    public ExtendedLetter(String s) {
         super(c);
         content = s;
         related = false;
@@ -19,10 +22,26 @@ public class ExtendedLetter extends Letter {
         super(c);
         content = s;
         related = false;
+        // family is a positive number which
+        //indicates that any ExtendedLetter object with the same value in instance
+        //variable family will be consider related to this ExtendedLetter object
         family = fam;
     }
 
-    //getters
+    public static Letter[] fromStrings(String[] content, int[] codes) {
+        Letter[] letters = new Letter[content.length];
+        if (codes == null) {
+            for (int i = 0; i < content.length; i++) {
+                letters[i] = new ExtendedLetter(content[i]);
+            }
+        } else {
+            for (int i = 0; i < content.length; i++) {
+                letters[i] = new ExtendedLetter(content[i], codes[i]);
+            }
+        }
+        return letters;
+    }
+
     public String getContent() {
         return content;
     }
@@ -31,53 +50,32 @@ public class ExtendedLetter extends Letter {
         return family;
     }
 
+
     public boolean isRelated() {
         return related;
-    }
-
-
-   // setters
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setFamily(int family) {
-        this.family = family;
     }
 
     public void setRelated(boolean related) {
         this.related = related;
     }
 
-    // methods
-    public boolean equals(Object other){
-        if (other instanceof ExtendedLetter) {
-            if (this.getFamily() == ((ExtendedLetter) other).getFamily()) this.setRelated(true);
-            if (this.getContent() == ((ExtendedLetter) other).getContent()) return true;
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ExtendedLetter)) return false;
+        else {
+            if (this.getFamily() == (((ExtendedLetter) other).getFamily())) this.setRelated(true);
+            return this.getContent().equals(((ExtendedLetter) other).getContent());
         }
-        return false;
     }
 
-    public String toString(){
+    @Override
+    public String toString() {
+        // gives a String representation of this ExtendedLetter object
         String s = "";
         if (isUnused() && isRelated()) s += "." + getContent() + ".";
         else {
             s += decorator() + getContent() + decorator();
         }
         return s;
-    }
-
-    public static Letter[] fromStrings(String[] content, int[] codes) {
-        Letter[] letters = new Letter[content.length];
-        if (codes  == null) {
-            for (int i=0; i < content.length; i++) {
-                letters[i] = new ExtendedLetter(content[i]);
-            }
-        } else {
-            for (int i=0; i < content.length; i++) {
-                letters[i] = new ExtendedLetter(content[i], codes[i]);
-            }
-        }
-        return letters;
     }
 }
