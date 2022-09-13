@@ -71,18 +71,18 @@ public class TestStackMap {
 			DoubleLinkedNode<String> node = stack.getTop();
 			if (!node.getPrevious().getElement().equals("7")) testPassed = false;
 			if (!node.getPrevious().getNext().getElement().equals("9")) testPassed = false;
-			
+
 			value = stack.pop(1);
 			if (!value.equals("9")) testPassed = false;
 			node = stack.getTop();
 			if (!node.getElement().equals("7")) testPassed = false;
-			
+
 			value = stack.pop(6);
 			if (!value.equals("2")) testPassed = false;
-			for (int i = 0; i < 6; ++i) 
+			for (int i = 0; i < 6; ++i)
 				node = node.getPrevious();
 			if (!node.getElement().equals("0")) testPassed = false;
-			
+
 			for (int i = 0; i < 6; ++i) node = node.getNext();
 			if (!node.getElement().equals("7")) testPassed = false;
 		}  catch (Exception e) {
@@ -114,13 +114,13 @@ public class TestStackMap {
 		} catch (Exception e) {
 			System.out.println("Test 5 failed");
 		}
-		
+
 		FindPath program;
 		testPassed = true;
 
 		program = new FindPath("map0.txt");
 		try {
-			Map m = program.getMap();	
+			Map m = program.getMap();
 			Chamber current = m.getEntrance();
 			current = current.getNeighbour(2);
 			if (program.isDim(current)) testPassed = false;
@@ -135,7 +135,7 @@ public class TestStackMap {
 			testPassed = false;
 		}
 		if (testPassed) System.out.println("Test 6 passed");
-		else System.out.println("Test 6 failed");		
+		else System.out.println("Test 6 failed");
 		System.exit(0);
 	}
 
